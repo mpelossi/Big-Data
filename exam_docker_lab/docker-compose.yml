@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+services:
+  db:
+    image: postgres:17.6
+    volumes:
+      - ./install.sh:/docker-entrypoint-initdb.d/install.sh
+      - ./files/:/files/
+    environment:
+      POSTGRES_PASSWORD: example
+
+  jupyter:
+    build: ./jupyter_docker
+    volumes:
+      - ./notebooks/:/home
+    ports:
+      # Only allow access from localhost
+      - "127.0.0.1:8888:8888"
+      # Spark Web UI
+      - "127.0.0.1:4040:4040"
+    working_dir: /home
+
+  adminer:
+    image: adminer
+    ports:
+      - "127.0.0.1:8080:8080"
