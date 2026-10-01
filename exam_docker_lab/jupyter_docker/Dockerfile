@@ -15,6 +15,8 @@ RUN python3 -m pip install --upgrade pip
 RUN pip3 install jupyterlab==4.5.5
 RUN pip3 install jupysql==0.11.1
 RUN pip3 install psycopg2==2.9.12
+# psycopg 3 is SQLAlchemy 2.1's default driver for postgresql:// URLs; psycopg2 is still imported by exercise13
+RUN pip3 install "psycopg[binary]==3.3.6"
 RUN pip3 install pyspark==4.0.2
 RUN pip3 install sparksql-magic==0.0.3
 RUN pip3 install findspark==2.0.1
